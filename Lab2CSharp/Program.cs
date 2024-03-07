@@ -167,23 +167,23 @@ static void task3() {
 
 
 static void task4()
-    {
+        {
             Console.Write("Введіть кількість рядків: ");
             int n = int.Parse(Console.ReadLine());
 
-            Console.Write("Введіть кількість елементів у кожному рядку: ");
-            int m = int.Parse(Console.ReadLine());
+            int[][] array = new int[n][]; // Оголошуємо східчастий масив
 
-
-            int[,] array = new int[n, m];
-
-
+            // Заповнюємо східчастий масив
             for (int i = 0; i < n; i++)
             {
+                Console.Write($"Введіть кількість елементів у {i + 1}-му рядку: ");
+                int m = int.Parse(Console.ReadLine());
+                array[i] = new int[m]; // Ініціалізуємо рядок східчастого масиву
+
                 for (int j = 0; j < m; j++)
                 {
                     Console.Write($"Введіть елемент масиву для рядка {i + 1} і стовпця {j + 1}: ");
-                    array[i, j] = int.Parse(Console.ReadLine());
+                    array[i][j] = int.Parse(Console.ReadLine());
                 }
             }
 
@@ -195,24 +195,28 @@ static void task4()
 
             int[] sums = new int[n];
 
-
+            // Обчислюємо суми елементів від k1 до k2 для кожного ряду
             for (int i = 0; i < n; i++)
             {
                 int sum = 0;
-                for (int j = k1 - 1; j < k2 && j < m; j++)
+                for (int j = 0; j < k2 && j < array[i].Length; j++) // Змінено умову
                 {
-                    sum += array[i, j];
+                    if (j >= k1 - 1)
+                    {
+                        sum += array[i][j];
+                    }
                 }
                 sums[i] = sum;
             }
 
-
+            // Виводимо суми елементів для кожного ряду
             Console.WriteLine("Суми елементів від k1 до k2 для кожного ряду:");
             for (int i = 0; i < n; i++)
             {
-                Console.WriteLine("Ряд " + (i + 1) + ": " + sums[i]);
+                Console.WriteLine($"Ряд {i + 1}: {sums[i]}");
             }
         }
+
     
 
 
